@@ -1,0 +1,27 @@
+{
+  "type": "record",
+  "namespace": "ecommerce.events",
+  "name": "ProductViewed",
+  "fields": [
+    {
+      "name": "event_id",
+      "type": "string"
+    },
+    {
+      "name": "user_id",
+      "type": "long"
+    },
+    {
+      "name": "product_id",
+      "type": "long"
+    },
+    {
+      "name": "category",
+      "type": "string"
+    },
+    {
+      "name": "event_timestamp",
+      "type": "string"
+    }
+  ]
+}

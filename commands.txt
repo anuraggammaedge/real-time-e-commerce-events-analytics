@@ -1,0 +1,36 @@
+## Schema registry health check: 
+curl http://localhost:8081/
+curl http://localhost:8081/subjectsts
+
+## Register schema command
+curl -X POST \
+  http://localhost:8081/subjects/product-viewed-value/versions \
+  -H "Content-Type: application/vnd.schemaregistry.v1+json" \
+  -d '{
+    "schema":"{\"type\":\"record\",\"namespace\":\"ecommerce.events\",\"name\":\"ProductViewed\",\"fields\":[{\"name\":\"event_id\",\"type\":\"string\"},{\"name\":\"user_id\",\"type\":\"long\"},{\"name\":\"product_id\",\"type\":\"long\"},{\"name\":\"category\",\"type\":\"string\"},{\"name\":\"event_timestamp\",\"type\":\"string\"}]}"
+  }'
+output:
+## ["product-viewed-value"] - first schema is stored in Schema Registry and can now be used by producers and consumers.
+
+## Kafka topic command (create)
+
+docker exec -it ecommerce-streaming-kafka-1 \
+kafka-topics \
+--bootstrap-server localhost:9092 \
+--create \
+--topic product-views \ 
+--partitions 6 \
+--replication-factor 1
+
+
+## verify topic (product-views):
+docker exec -it ecommerce-streaming-kafka-1 \
+kafka-topics \
+--bootstrap-server localhost:9092 \
+--describe \
+--topic product-views
+
+output:
+Topic: product-views
+Partitions: 6
+Replication Factor: 1 (local development)
