@@ -18,10 +18,9 @@ docker exec -it ecommerce-streaming-kafka-1 \
 kafka-topics \
 --bootstrap-server localhost:9092 \
 --create \
---topic product-views \ 
---partitions 6 \
+--topic product-views \
+--partitions 12 \
 --replication-factor 1
-
 
 ## verify topic (product-views):
 docker exec -it ecommerce-streaming-kafka-1 \
